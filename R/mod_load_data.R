@@ -10,7 +10,7 @@
 mod_load_data_ui <- function(id){
   ns <- NS(id)
   tagList(
- 
+    
   )
 }
     
@@ -63,17 +63,18 @@ mod_load_data_server <- function(input, output, session){
     return(out)
   })
   
-  w <- waiter::Waiter$new()
+  # w <- waiter::Waiter$new()
+  rv <- reactiveValues(
+    dat = NULL
+  )
   
-  dat <- shiny::eventReactive(input$load_dataset, {
-    browser()
+  observeEvent(input$load_dataset, {
     dat_choice <- input$dataset_choice
     if (dat_choice == "custom"){
       dat_file <- input$custom_file
-      dat_ext <- tools::file_ext(dat_file$datapath)
     } 
     shiny::removeModal()
-    w$show
+    # w$show
     
     if (dat_choice == "adv_r"){
       dat <- valid_flash_cards(shinyFlash::adv_r_deck)
@@ -83,12 +84,12 @@ mod_load_data_server <- function(input, output, session){
       dat <- read_flash_cards(dat_file$datapath)
     }
     
-    w$hide
+    # w$hide
     
-    return(dat)
+    rv$dat <- dat
   })
   
-  return(dat())
+  return(rv$dat)
 }
     
 ## To be copied in the UI
