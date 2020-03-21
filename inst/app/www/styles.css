@@ -1,0 +1,68 @@
+.question-card {
+  width:80%;
+  height:calc(60vh) !important;
+  min-height:300px;
+  background-color:white;
+  color:black;
+  font-size: 4em;
+  text-align: center;
+  margin: auto;
+  overflow-y:auto;
+  background-image:
+    linear-gradient(180deg, white 5rem, #F0A4A4 calc(5rem), #F0A4A4 calc(5rem + 2px), transparent 1px),
+    repeating-linear-gradient(0deg, transparent, transparent 3rem, transparent 3px, transparent calc(3rem + 1px));
+  box-shadow: 1px 1px 3px rgba(0,0,0,.25);
+  font-family:'Open Sans', sans-serif;
+  padding-top:5rem;
+  padding-left: 15px;
+  padding-right:15px;
+}
+
+.question-card .sourceCode {
+  text-align: left;
+}
+
+body {
+  background-color:#DDD;
+}
+
+html, body {
+  height:100%;
+}
+
+.fa-github {
+  font-size:30px;
+  color:black;
+}
+
+#change_dataset {
+  margin-top: -13px;
+  margin-right: 5px;
+}
+
+.answers-card {
+  width:80%;
+  height:calc(60vh) !important;
+  min-height:300px;
+  background-color:white;
+  color:black;
+  font-size: 2.5rem;
+  margin: 0 auto;
+  overflow-y:auto;
+  line-height:3.1rem;
+  padding-top:6.5rem;
+  padding-left:15px;
+  padding-right:15px;
+  background-image:
+    linear-gradient(180deg, white 5rem, #F0A4A4 calc(5rem), #F0A4A4 calc(5rem + 2px), transparent 1px),
+    repeating-linear-gradient(0deg, transparent, transparent 3rem, #DDD 3px, #DDD calc(3rem + 1px));
+  box-shadow: 1px 1px 3px rgba(0,0,0,.25);
+  font-family:'Open Sans', sans-serif;
+}
+
+#links-div {
+  position:absolute;
+  top:10px;
+  right:10px;
+  color:black;
+}
