@@ -91,8 +91,8 @@ golem_add_external_resources <- function(){
     shiny::tags$link(href='http://fonts.googleapis.com/css?family=Merienda+One', rel='stylesheet', type='text/css'),
     shiny::tags$link(href='http://fonts.googleapis.com/css?family=Lobster+Two', rel='stylesheet', type='text/css'),
     shiny::tags$link(href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap", rel="stylesheet"),
-    shiny::includeCSS("www/styles.css"),
-    shiny::includeScript("www/button_click.js"),
+    tags$link(rel="stylesheet", type="text/css", href="www/styles.css"),
+    tags$script(src = "www/button-click.js")
   )
 }
 
