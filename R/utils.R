@@ -1,5 +1,9 @@
 
-
+#' Read Flash card files
+#' 
+#' @param path the path to a file. Must have columns `question` and `answer`. 
+#' 
+#' @details function currently accepts .xlsx, .csv, and .rds
 read_flash_cards <- function(path){
   attempt::stop_if(
     file.exists(path),
@@ -27,12 +31,23 @@ read_flash_cards <- function(path){
   return(out)
 }
 
+#' validate that flash cards have the required columns
+#' 
+#' @param .data a date frame with columns `question` and `answer`
+#' 
+#' @details 
+#' the column names are case insensitive
 valid_flash_cards <- function(.data){
+  .data <- janitor::clean_names(.data)
    attempt::stop_if(
      all(c("question", "answer") %in% colnames(.data)), 
      .p = isFALSE,
      msg = "`.data` must contain the columns `question` and `answer`" 
    )
   
-  return(.data)
+  out <- .data %>% 
+    dplyr::select(question, answer) %>% 
+    dplyr::mutate_all(as.character)
+  
+  return(out)
 }
