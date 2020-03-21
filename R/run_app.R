@@ -5,7 +5,7 @@
 #' @export
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options
-run_app <- function(
+flash_cards <- function(
   .data = NULL, path = NULL
 ) {
   with_golem_options(

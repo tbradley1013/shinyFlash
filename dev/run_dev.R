@@ -9,4 +9,5 @@ golem::detach_all_attached()
 golem::document_and_reload()
 
 # Run the application
-run_app(.data = shinyFlash::adv_r_deck)
+# flash_cards(.data = shinyFlash::adv_r_deck)
+flash_cards()
