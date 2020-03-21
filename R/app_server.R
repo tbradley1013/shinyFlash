@@ -10,52 +10,54 @@ app_server <- function(input, output, session) {
   .data <- golem::get_golem_options(".data")
   path <- golem::get_golem_options("path")
   
-  rv_dat <- reactiveValues(
+  rv <- shiny::reactiveValues(
+    answer_visible = FALSE,
+    question_visible = TRUE,
+    card_keep = numeric(0),
+    card_know = numeric(0),
     dat = NULL
   )
   
   observe({
+    req(is.null(rv$dat))
     if (!is.null(.data)){
-      rv_dat$dat <- valid_flash_cards(.data)
+      rv$dat <- valid_flash_cards(.data)
     } else if (!is.null(path)){
-      rv_dat$dat <- read_flash_cards(path)
+      rv$dat <- read_flash_cards(path)
     } else {
-      rv_dat$dat <- shiny::callModule(mod_load_data_server, "load_data_ui_1")
+      isolate(shiny::callModule(mod_load_data_server, "load_data_ui_1", rv = rv))
     }
   })
   
   
   
   shiny::observe({
-    shiny::req(rv_dat$dat)
+    rv$dat
+    req(rv$dat)
     shinyjs::show("main-content")
   })
  
   
   observeEvent(input$change_dataset, {
     shinyjs::hide("main-content")
-    rv_dat$dat <- shiny::callModule(mod_load_data_server, "load_data_ui_1")
+    rv$dat <- NULL
+    isolate(shiny::callModule(mod_load_data_server, "load_data_ui_1", rv = rv))
     # shinyjs::show("main-content")
   })
   
   
-  rv <- shiny::reactiveValues(
-    answer_visible = FALSE,
-    question_visible = TRUE,
-    card_keep = numeric(0),
-    card_know = numeric(0)
-  )
+  
   
   shiny::observe({
-    req(rv_dat$dat)
-    rv$n_cards <- length(unique(rv_dat$dat$question))
+    req(rv$dat)
+    rv$n_cards <- length(unique(rv$dat$question))
     rv$card_idx <- sample(1:rv$n_cards, rv$n_cards)
     rv$n <- 1
   })
   
   card_html <- shiny::reactive({
-    shiny::req(rv_dat$dat)
-    rv_dat$dat %>% 
+    shiny::req(rv$dat)
+    rv$dat %>% 
       dplyr::select(question, answer) %>% 
       dplyr::group_nest(question, .key = "answer") %>% 
       dplyr::mutate(

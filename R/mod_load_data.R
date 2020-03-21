@@ -17,7 +17,7 @@ mod_load_data_ui <- function(id){
 #' load_data Server Function
 #'
 #' @noRd 
-mod_load_data_server <- function(input, output, session){
+mod_load_data_server <- function(input, output, session, rv){
   ns <- session$ns
  
   dialog <- shiny::modalDialog(
@@ -63,33 +63,32 @@ mod_load_data_server <- function(input, output, session){
     return(out)
   })
   
-  # w <- waiter::Waiter$new()
-  rv <- reactiveValues(
-    dat = NULL
-  )
   
   observeEvent(input$load_dataset, {
-    dat_choice <- input$dataset_choice
-    if (dat_choice == "custom"){
-      dat_file <- input$custom_file
-    } 
-    shiny::removeModal()
-    # w$show
+    isolate({
+      dat_choice <- input$dataset_choice
+      if (dat_choice == "custom"){
+        dat_file <- input$custom_file
+      } 
+      
+      if (dat_choice == "adv_r"){
+        dat <- valid_flash_cards(shinyFlash::adv_r_deck)
+      } else if (dat_choice == "drbc"){
+        dat <- valid_flash_cards(shinyFlash::drbc_deck)
+      } else {
+        dat <- read_flash_cards(dat_file$datapath)
+      }
+      
+      cat("Loaded the data!\n")
+      
+      rv$dat <- dat  
+      shiny::removeModal()
+      rv$dat_added <- TRUE
+       
+      
+    })
     
-    if (dat_choice == "adv_r"){
-      dat <- valid_flash_cards(shinyFlash::adv_r_deck)
-    } else if (dat_choice == "drbc"){
-      dat <- valid_flash_cards(shinyFlash::drbc_deck)
-    } else {
-      dat <- read_flash_cards(dat_file$datapath)
-    }
-    
-    # w$hide
-    
-    rv$dat <- dat
   })
-  
-  return(rv$dat)
 }
     
 ## To be copied in the UI
