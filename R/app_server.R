@@ -10,59 +10,70 @@ app_server <- function(input, output, session) {
   .data <- golem::get_golem_options(".data")
   path <- golem::get_golem_options("path")
   
-  if (!is.null(data)){
-    dat <- valid_flash_cards(.data)
-  } else if (!is.null(path)){
-    dat <- read_flash_cards(path)
-  } else {
+  dat <- reactive({
+    if (!is.null(data)){
+      dat <- valid_flash_cards(.data)
+    } else if (!is.null(path)){
+      dat <- read_flash_cards(path)
+    } else {
+      dat <- shiny::callModule(mod_load_data_server, "load_data_ui_1")
+    }
     
-  }
+    return(dat)
+  })
   
+  
+  
+  shiny::observe({
+    shiny::req(dat())
+    shinyjs::show("main-content")
+  })
  
   
   observeEvent(input$change_dataset, {
     shinyjs::hide("main-content")
-    showModal(dialog)
+    dat <- shiny::callModule(mod_load_data_server, "load_data_ui_1")
+    shinyjs::show("main-content")
   })
   
   
-  rv <- reactiveValues(
+  rv <- shiny::reactiveValues(
     answer_visible = FALSE,
     question_visible = TRUE,
     card_keep = numeric(0),
     card_know = numeric(0)
   )
   
-  observe({
+  shiny::observe({
     rv$n_cards <- length(unique(dat()$question))
     rv$card_idx <- sample(1:rv$n_cards, rv$n_cards)
     rv$n <- 1
   })
   
-  card_html <- reactive({
+  card_html <- shiny::reactive({
     dat() %>% 
-      select(question, answer) %>% 
-      group_nest(question, .key = "answer") %>% 
-      mutate(
+      dplyr::select(question, answer) %>% 
+      dplyr::group_nest(question, .key = "answer") %>% 
+      dplyr::mutate(
         question = purrr::map(question, ~{
-          tagList(
-            tags$div(
+          shiny::tagList(
+            shiny::tags$div(
               class = "question-card",
               id = "question-div",
-              tags$div(
+              shiny::tags$div(
                 class = "question",
-                HTML(.x)
+                shiny::HTML(.x)
               )
             )
           )
         }),
         answer = purrr::map(answer, ~{
-          tagList(
-            tags$div(
+          shiny::tagList(
+            shiny::tags$div(
               class = "answers-card",
-              tags$div(
+              shiny::tags$div(
                 class = "answers",
-                tags$ul(HTML(paste0("<li>", .x$answer, "</li>")))
+                shiny::tags$ul(shiny::HTML(paste0("<li>", .x$answer, "</li>")))
               )
             )
           )
@@ -70,36 +81,36 @@ app_server <- function(input, output, session) {
       )  
   })
   
-  output$card <- renderUI({
-    req(rv$n)
+  output$card <- shiny::renderUI({
+    shiny::req(rv$n)
     selected_card <- card_html()[rv$card_idx[rv$n],]
     if (rv$question_visible){
-      return(tagList(selected_card$question[[1]]))
+      return(shiny::tagList(selected_card$question[[1]]))
     } else if (rv$answer_visible) {
-      return(tagList(selected_card$answer[[1]]))
+      return(shiny::tagList(selected_card$answer[[1]]))
     }
   })
   
-  observeEvent(input$show_answer, {
+  shiny::observeEvent(input$show_answer, {
     if (rv$question_visible){
       rv$answer_visible <- TRUE
       rv$question_visible <- FALSE
       
-      updateActionButton(session, "show_answer", label = "Show Question")
+      shiny::updateActionButton(session, "show_answer", label = "Show Question")
     } else if (rv$answer_visible){
       rv$answer_visible <- FALSE
       rv$question_visible <- TRUE
       
-      updateActionButton(session, "show_answer", label = "Show Answer")
+      shiny::updateActionButton(session, "show_answer", label = "Show Answer")
     }
     
   })
   
-  observeEvent(input$next_question, {
+  shiny::observeEvent(input$next_question, {
     if (rv$answer_visible){
       rv$answer_visible <- FALSE
       rv$question_visible <- TRUE
-      updateActionButton(session, "show_answer", label = "Show Answer")
+      shiny::updateActionButton(session, "show_answer", label = "Show Answer")
     }
     
     
@@ -111,7 +122,7 @@ app_server <- function(input, output, session) {
     
   })
   
-  observeEvent(input$know_it, {
+  shiny::observeEvent(input$know_it, {
     if (rv$answer_visible){
       rv$answer_visible <- FALSE
       rv$question_visible <- TRUE
@@ -119,7 +130,7 @@ app_server <- function(input, output, session) {
     
     rv$card_know <- c(rv$card_know, rv$card_idx[rv$n])
     rv$card_idx <- rv$card_idx[-rv$n]
-    updateActionButton(session, "show_answer", label = "Show Answer")
+    shiny::updateActionButton(session, "show_answer", label = "Show Answer")
     
     if (length(rv$card_idx) > rv$n){
       rv$n <- rv$n + 1
