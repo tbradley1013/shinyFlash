@@ -75,25 +75,11 @@ mod_load_data_server <- function(input, output, session){
     w$show
     
     if (dat_choice == "adv_r"){
-      dat <- readr::read_rds("data/adv-r-deck.rds")
+      dat <- valid_flash_cards(shinyFlash::adv_r_deck)
     } else if (dat_choice == "drbc"){
-      dat <- readxl::read_excel("data/drbc-deck-1.xlsx") %>%
-        janitor::clean_names() %>%
-        dplyr::mutate(answer = as.character(answer))
+      dat <- valid_flash_cards(shinyFlash::drbc_deck)
     } else {
-      if (dat_ext == "xlsx"){
-        dat <- readxl::read_excel(dat_file$datapath) %>% 
-          janitor::clean_names()
-      } else if (dat_ext == "csv"){
-        dat <- readr::read_csv(dat_file$datapath) %>% 
-          janitor::clean_names()
-      } else if (dat_ext == "rds"){
-        dat <- readr::read_rds(dat_file$datapath) %>% 
-          janitor::clean_names()
-      } else {
-        showModal(dialog)
-        return(NULL)
-      }
+      dat <- read_flash_cards(dat_file$datapath)
       
       if (!all(c("question", "answer") %in% colnames(dat))){
         showModal(dialog)
@@ -106,6 +92,8 @@ mod_load_data_server <- function(input, output, session){
     
     return(dat)
   })
+  
+  return(dat())
 }
     
 ## To be copied in the UI
