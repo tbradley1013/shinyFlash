@@ -20,7 +20,7 @@ golem::fill_desc(
   author_first_name = "Tyler", # Your First Name
   author_last_name = "Bradley", # Your Last Name
   author_email = "tcb85@drexel.edu", # Your Email
-  repo_url = NULL # The URL of the GitHub Repo (optional) 
+  repo_url = "https://github.com/tbradley1013/shinyFlash" # The URL of the GitHub Repo (optional) 
 )     
 
 ## Set {golem} options ----
@@ -28,11 +28,11 @@ golem::set_golem_options()
 
 ## Create Common Files ----
 ## See ?usethis for more information
-usethis::use_mit_license( name = "Golem User" )  # You can set another license here
-usethis::use_readme_rmd( open = FALSE )
+usethis::use_mit_license(name = "Tyler Bradley")  # You can set another license here
+usethis::use_readme_rmd(open = FALSE)
 usethis::use_code_of_conduct()
-usethis::use_lifecycle_badge( "Experimental" )
-usethis::use_news_md( open = FALSE )
+usethis::use_lifecycle_badge("Experimental")
+usethis::use_news_md(open = FALSE)
 
 ## Use git ----
 usethis::use_git()
