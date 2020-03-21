@@ -52,7 +52,7 @@ mod_load_data_server <- function(input, output, session){
     if (input$dataset_choice == "custom"){
       out <- shiny::tagList(
         shiny::fileInput(
-          inputId = "custom_file",
+          inputId = ns("custom_file"),
           label = "Custom File",
           accept = c("xlsx", "csv", "rds")
         ),
@@ -66,6 +66,7 @@ mod_load_data_server <- function(input, output, session){
   w <- waiter::Waiter$new()
   
   dat <- shiny::eventReactive(input$load_dataset, {
+    browser()
     dat_choice <- input$dataset_choice
     if (dat_choice == "custom"){
       dat_file <- input$custom_file
@@ -80,14 +81,8 @@ mod_load_data_server <- function(input, output, session){
       dat <- valid_flash_cards(shinyFlash::drbc_deck)
     } else {
       dat <- read_flash_cards(dat_file$datapath)
-      
-      if (!all(c("question", "answer") %in% colnames(dat))){
-        showModal(dialog)
-        return(NULL)
-      }
     }
     
-    shinyjs::show("main-content")
     w$hide
     
     return(dat)
