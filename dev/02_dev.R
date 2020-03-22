@@ -26,6 +26,7 @@ usethis::use_pipe()
 usethis::use_package("shinyjs")
 usethis::use_package("shinyalert")
 usethis::use_package("waiter")
+usethis::use_package("miniUI")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
