@@ -11,3 +11,6 @@ golem::document_and_reload()
 # Run the application
 # flash_cards(.data = shinyFlash::adv_r_deck)
 flash_cards()
+
+
+flash_addin(.data = shinyFlash::adv_r_deck)
