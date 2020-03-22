@@ -18,8 +18,8 @@ flash_cards <- function(
 }
 
 
-flash_addin <- function(.data = NULL, path = NULL){
-  viewer = shiny::dialogViewer("shinyFlash", width = 1000, height = 600)
+flash_addin <- function(.data = NULL, path = NULL, width = 1000, height = 800){
+  viewer = shiny::dialogViewer("shinyFlash", width = width, height = height)
   
   app <- shinyApp(
     ui = addin_ui, 
