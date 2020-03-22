@@ -1,0 +1,4 @@
+Name: shinyFlash
+Description: Generate interactive flash cards to help you study!
+Binding: flash_addin
+Interactive: true
