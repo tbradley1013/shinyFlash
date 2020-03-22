@@ -17,7 +17,15 @@ flash_cards <- function(
   )
 }
 
-
+#' Run shinyFlash as an RStudio Addin
+#' 
+#' @param .data a data.frame containing columns `question` and `answer`
+#' @param path the path to a `.xlsx`, `.csv`, `.rds` file containing a 
+#' data.frame with columns `question` and `answer`
+#' @param width the width of the rstudio modal dialog box (in pixels)
+#' @param hieght the height of the rstudio modal dialog box (in pixels)
+#' 
+#' @export
 flash_addin <- function(.data = NULL, path = NULL, width = 1000, height = 800){
   viewer = shiny::dialogViewer("shinyFlash", width = width, height = height)
   
