@@ -188,4 +188,8 @@ addin_server <- function(input, output, session){
   
   callModule(mod_gen_card_server, "gen_card_ui_1", rv = rv)
   
+  observeEvent(input$done, {
+    stopApp()
+  })
+  
 }

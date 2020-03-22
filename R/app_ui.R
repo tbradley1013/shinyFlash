@@ -102,6 +102,7 @@ addin_ui <- function(){
   shiny::tagList(
     golem_add_external_resources(),
     miniUI::miniPage(
+      miniUI::gadgetTitleBar("shinyFlash"),
       mod_gen_card_ui("gen_card_ui_1")
     )
   )
