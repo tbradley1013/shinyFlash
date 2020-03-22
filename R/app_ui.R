@@ -30,35 +30,36 @@ app_ui <- function(request) {
             style = "text-align:center;"
           ),
           shiny::br(),
-          shiny::uiOutput("card"),
-          shiny::br(),
-          shiny::fluidRow(
-            shiny::actionButton(
-              inputId = "know_it",
-              label = "I know it!",
-              class = "btn-success btn-lg",
-              width = "33%" 
-            ),
-            shiny::actionButton(
-              inputId = "show_answer",
-              label = "Show Answer",
-              class = "btn-primary btn-lg",
-              width = "33%"
-            ),
-            shiny::actionButton(
-              inputId = "next_question",
-              label = "Next Question",
-              class = "btn-danger btn-lg",
-              width = "33%"
-            ),
-            inline = TRUE,
-            style = "width:50%;margin: 0 auto;"
-          ),
-          shiny::div(
-            shiny::tags$p(shiny::tags$kbd("a"), ": Toggle Question/Answer"),
-            shiny::tags$p(shiny::tags$kbd("d"), ": Next Question"),
-            shiny::tags$p(shiny::tags$kbd("w"), ": I Know it!")
-          )
+          mod_gen_card_ui("gen_card_ui_1")
+          # shiny::uiOutput("card"),
+          # shiny::br(),
+          # shiny::fluidRow(
+          #   shiny::actionButton(
+          #     inputId = "know_it",
+          #     label = "I know it!",
+          #     class = "btn-success btn-lg",
+          #     width = "33%" 
+          #   ),
+          #   shiny::actionButton(
+          #     inputId = "show_answer",
+          #     label = "Show Answer",
+          #     class = "btn-primary btn-lg",
+          #     width = "33%"
+          #   ),
+          #   shiny::actionButton(
+          #     inputId = "next_question",
+          #     label = "Next Question",
+          #     class = "btn-danger btn-lg",
+          #     width = "33%"
+          #   ),
+          #   inline = TRUE,
+          #   style = "width:50%;margin: 0 auto;"
+          # ),
+          # shiny::div(
+          #   shiny::tags$p(shiny::tags$kbd("a"), ": Toggle Question/Answer"),
+          #   shiny::tags$p(shiny::tags$kbd("d"), ": Next Question"),
+          #   shiny::tags$p(shiny::tags$kbd("w"), ": I Know it!")
+          # )
         )
       )
     )
@@ -96,3 +97,9 @@ golem_add_external_resources <- function(){
   )
 }
 
+
+addin_ui <- function(){
+  miniUI::miniPage(
+    
+  )
+}
