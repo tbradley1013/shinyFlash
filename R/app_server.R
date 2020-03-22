@@ -6,7 +6,6 @@
 #' @noRd
 app_server <- function(input, output, session) {
   session$onSessionEnded(stopApp)
-  # List the first level callModules here
   .data <- golem::get_golem_options(".data")
   path <- golem::get_golem_options("path")
   
@@ -153,5 +152,40 @@ app_server <- function(input, output, session) {
   #   }
   #   
   # })
+  
+}
+
+
+addin_server <- function(input, output, session){
+  session$onSessionEnded(stopApp)
+  .data <- golem::get_golem_options(".data")
+  path <- golem::get_golem_options("path")
+  
+  rv <- shiny::reactiveValues(
+    answer_visible = FALSE,
+    question_visible = TRUE,
+    card_keep = numeric(0),
+    card_know = numeric(0),
+    dat = NULL
+  )
+  
+  observe({
+    req(is.null(rv$dat))
+    if (!is.null(.data)){
+      rv$dat <- valid_flash_cards(.data)
+    } else if (!is.null(path)){
+      rv$dat <- read_flash_cards(path)
+    }
+    # rv$dat <- valid_flash_cards(shinyFlash::adv_r_deck)
+  })
+  
+  shiny::observe({
+    req(rv$dat)
+    rv$n_cards <- length(unique(rv$dat$question))
+    rv$card_idx <- sample(1:rv$n_cards, rv$n_cards)
+    rv$n <- 1
+  })
+  
+  callModule(mod_gen_card_server, "gen_card_ui_1", rv = rv)
   
 }

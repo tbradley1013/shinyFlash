@@ -16,3 +16,17 @@ flash_cards <- function(
     golem_opts = list(.data = .data, path = path)
   )
 }
+
+
+flash_addin <- function(.data = NULL, path = NULL){
+  viewer = shiny::dialogViewer("shinyFlash", width = 1000, height = 600)
+  
+  app <- shinyApp(
+    ui = addin_ui, 
+    server = addin_server
+  )
+  
+  app$appOptions$golem_options <- list(.data = .data, path = path)
+  
+  shiny::runGadget(app = app, viewer = viewer)
+}

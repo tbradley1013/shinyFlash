@@ -99,7 +99,11 @@ golem_add_external_resources <- function(){
 
 
 addin_ui <- function(){
-  miniUI::miniPage(
-    
+  shiny::tagList(
+    golem_add_external_resources(),
+    miniUI::miniPage(
+      mod_gen_card_ui("gen_card_ui_1")
+    )
   )
+  
 }
