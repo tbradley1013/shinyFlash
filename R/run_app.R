@@ -1,7 +1,10 @@
 #' Run the Shiny Application
 #'
 #' @param ... A series of options to be used inside the app.
-#'
+#' @param .data a data.frame containing columns `question` and `answer`
+#' @param path the path to a `.xlsx`, `.csv`, `.rds` file containing a 
+#' data.frame with columns `question` and `answer`
+#' 
 #' @export
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options

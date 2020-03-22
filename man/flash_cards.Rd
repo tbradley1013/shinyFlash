@@ -7,6 +7,11 @@
 flash_cards(.data = NULL, path = NULL)
 }
 \arguments{
+\item{.data}{a data.frame containing columns `question` and `answer`}
+
+\item{path}{the path to a `.xlsx`, `.csv`, `.rds` file containing a 
+data.frame with columns `question` and `answer`}
+
 \item{...}{A series of options to be used inside the app.}
 }
 \description{
