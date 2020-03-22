@@ -7,8 +7,11 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
-mod_gen_card_ui <- function(id){
+mod_gen_card_ui <- function(id, addin = FALSE){
   ns <- NS(id)
+  
+  btn_class <- ifelse(addin, "btn-sm", "btn-lg")
+  
   tagList(
     shiny::uiOutput(ns("card")),
     shiny::br(),
@@ -16,23 +19,23 @@ mod_gen_card_ui <- function(id){
       shiny::actionButton(
         inputId = ns("know_it"),
         label = "I know it!",
-        class = "btn-success btn-lg btn-know",
+        class = paste("btn-success", btn_class),
         width = "33%" 
       ),
       shiny::actionButton(
         inputId = ns("show_answer"),
         label = "Show Answer",
-        class = "btn-primary btn-lg btn-show",
+        class = paste("btn-primary", btn_class),
         width = "33%"
       ),
       shiny::actionButton(
         inputId = ns("next_question"),
         label = "Next Question",
-        class = "btn-danger btn-lg btn-next",
+        class = paste("btn-danger", btn_class),
         width = "33%"
       ),
       inline = TRUE,
-      style = "width:50%;margin: 0 auto;"
+      style = "width:80%;margin: 0 auto;"
     ),
     shiny::div(
       shiny::tags$p(shiny::tags$kbd("a"), ": Toggle Question/Answer"),

@@ -31,35 +31,6 @@ app_ui <- function(request) {
           ),
           shiny::br(),
           mod_gen_card_ui("gen_card_ui_1")
-          # shiny::uiOutput("card"),
-          # shiny::br(),
-          # shiny::fluidRow(
-          #   shiny::actionButton(
-          #     inputId = "know_it",
-          #     label = "I know it!",
-          #     class = "btn-success btn-lg",
-          #     width = "33%" 
-          #   ),
-          #   shiny::actionButton(
-          #     inputId = "show_answer",
-          #     label = "Show Answer",
-          #     class = "btn-primary btn-lg",
-          #     width = "33%"
-          #   ),
-          #   shiny::actionButton(
-          #     inputId = "next_question",
-          #     label = "Next Question",
-          #     class = "btn-danger btn-lg",
-          #     width = "33%"
-          #   ),
-          #   inline = TRUE,
-          #   style = "width:50%;margin: 0 auto;"
-          # ),
-          # shiny::div(
-          #   shiny::tags$p(shiny::tags$kbd("a"), ": Toggle Question/Answer"),
-          #   shiny::tags$p(shiny::tags$kbd("d"), ": Next Question"),
-          #   shiny::tags$p(shiny::tags$kbd("w"), ": I Know it!")
-          # )
         )
       )
     )
@@ -74,12 +45,17 @@ app_ui <- function(request) {
 #' @import shiny
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
-golem_add_external_resources <- function(){
+golem_add_external_resources <- function(addin = FALSE){
   
   add_resource_path(
     'www', app_sys('app/www')
   )
  
+  if (addin){
+    style <- tags$link(rel="stylesheet", type="text/css", href="www/styles.css")
+  } else {
+    style <- tags$link(rel="stylesheet", type="text/css", href="www/styles-addin.css")
+  }
   
   tags$head(
     favicon(),
@@ -92,7 +68,7 @@ golem_add_external_resources <- function(){
     shiny::tags$link(href='http://fonts.googleapis.com/css?family=Merienda+One', rel='stylesheet', type='text/css'),
     shiny::tags$link(href='http://fonts.googleapis.com/css?family=Lobster+Two', rel='stylesheet', type='text/css'),
     shiny::tags$link(href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap", rel="stylesheet"),
-    tags$link(rel="stylesheet", type="text/css", href="www/styles.css"),
+    style,
     tags$script(src = "www/button-click.js")
   )
 }
@@ -100,10 +76,10 @@ golem_add_external_resources <- function(){
 
 addin_ui <- function(){
   shiny::tagList(
-    golem_add_external_resources(),
+    golem_add_external_resources(addin = TRUE),
     miniUI::miniPage(
       miniUI::gadgetTitleBar("shinyFlash"),
-      mod_gen_card_ui("gen_card_ui_1")
+      mod_gen_card_ui("gen_card_ui_1", addin = TRUE)
     )
   )
   
