@@ -52,9 +52,9 @@ golem_add_external_resources <- function(addin = FALSE){
   )
  
   if (addin){
-    style <- tags$link(rel="stylesheet", type="text/css", href="www/styles.css")
-  } else {
     style <- tags$link(rel="stylesheet", type="text/css", href="www/styles-addin.css")
+  } else {
+    style <- tags$link(rel="stylesheet", type="text/css", href="www/styles.css")
   }
   
   tags$head(
