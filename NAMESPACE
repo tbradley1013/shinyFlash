@@ -3,6 +3,7 @@
 export("%>%")
 export(flash_addin)
 export(flash_cards)
+export(flash_shiny)
 import(shiny)
 importFrom(config,get)
 importFrom(golem,activate_js)

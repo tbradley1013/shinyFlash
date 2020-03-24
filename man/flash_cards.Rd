@@ -2,9 +2,15 @@
 % Please edit documentation in R/run_app.R
 \name{flash_cards}
 \alias{flash_cards}
+\alias{flash_shiny}
+\alias{flash_addin}
 \title{Run the Shiny Application}
 \usage{
-flash_cards(.data = NULL, path = NULL)
+flash_cards(.data = NULL, path = NULL, type = "shiny")
+
+flash_shiny(.data = NULL, path = NULL)
+
+flash_addin(.data = NULL, path = NULL, width = 1000, height = 800)
 }
 \arguments{
 \item{.data}{a data.frame containing columns `question` and `answer`}
@@ -12,7 +18,11 @@ flash_cards(.data = NULL, path = NULL)
 \item{path}{the path to a `.xlsx`, `.csv`, `.rds` file containing a 
 data.frame with columns `question` and `answer`}
 
-\item{...}{A series of options to be used inside the app.}
+\item{type}{the type of flash_cards to run. Can be either "shiny" or "addin"}
+
+\item{width}{the width of the rstudio modal dialog box (in pixels)}
+
+\item{hieght}{the height of the rstudio modal dialog box (in pixels)}
 }
 \description{
 Run the Shiny Application
