@@ -6,6 +6,8 @@
 #' @param type the type of flash_cards to run. Can be either "shiny" or "addin"
 #' @param width the width of the rstudio modal dialog box (in pixels)
 #' @param hieght the height of the rstudio modal dialog box (in pixels)
+#' @param envir the environment to look for flash card decks when using addin
+#' Defaults to .GlobalEnv
 #' 
 #' @export
 #' @importFrom shiny shinyApp
@@ -49,7 +51,8 @@ flash_local <- function(.data = NULL, path = NULL, width = 1000, height = 800){
   shiny::runGadget(app = app, viewer = viewer)
 }
 
-
+#' @rdname flash_cards
+#' @export
 flash_addin <- function(envir = .GlobalEnv){
   user_dat <- get_valid_decks(envir = envir)
   
