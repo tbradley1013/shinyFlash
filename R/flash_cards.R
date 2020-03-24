@@ -64,7 +64,7 @@ flash_addin_envir <- function(envir = .GlobalEnv){
 flash_addin_file <- function(){
   usr_file <- rstudioapi::selectFile()
   
-  flash_local(path = use_file)
+  flash_local(path = usr_file)
 }
 
 get_valid_decks <- function(envir = .GlobalEnv){
