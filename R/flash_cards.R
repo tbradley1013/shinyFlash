@@ -3,24 +3,23 @@
 #' @param .data a data.frame containing columns `question` and `answer`
 #' @param path the path to a `.xlsx`, `.csv`, `.rds` file containing a 
 #' data.frame with columns `question` and `answer`
-#' @param type the type of flash_cards to run. Can be either "shiny" or "addin"
+#' @param type the type of flash_cards to run. Can be either "shiny" or "local"
 #' @param width the width of the rstudio modal dialog box (in pixels)
 #' @param hieght the height of the rstudio modal dialog box (in pixels)
-#' @param envir the environment to look for flash card decks when using addin
-#' Defaults to .GlobalEnv
+#' @param envir the environment to look for flash card decks when using 
+#' type = "local"; Defaults to .GlobalEnv
 #' 
 #' @export
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options
-flash_cards <- function(
-  .data = NULL, path = NULL, type = "local"
-) {
+flash_cards <- function(.data = NULL, path = NULL, type = "local", 
+                        width = 1000, height = 800) {
   type <- match.arg(type, c("shiny", "local"))
   
   if (type == "shiny"){
     flash_shiny(.data = .data, path = path)
   } else if (type == "local"){
-    flash_local(.data = .data, path = path)
+    flash_local(.data = .data, path = path, width = width, height = height)
   }
 }
 
