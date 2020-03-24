@@ -22,6 +22,7 @@ usethis::use_package("readxl")
 usethis::use_package("janitor")
 usethis::use_pipe()
 usethis::use_package("crayon")
+usethis::use_package("rstudioapi")
 
 # shiny related functions
 usethis::use_package("shinyjs")
