@@ -53,12 +53,19 @@ flash_local <- function(.data = NULL, path = NULL, width = 1000, height = 800){
 
 #' @rdname flash_cards
 #' @export
-flash_addin <- function(envir = .GlobalEnv){
+flash_addin_envir <- function(envir = .GlobalEnv){
   user_dat <- get_valid_decks(envir = envir)
   
   flash_local(.data = user_dat)
 }
 
+#' @rdname flash_cards
+#' @export
+flash_addin_file <- function(){
+  usr_file <- rstudioapi::selectFile()
+  
+  flash_local(path = use_file)
+}
 
 get_valid_decks <- function(envir = .GlobalEnv){
   all_objs <- ls(envir = envir)

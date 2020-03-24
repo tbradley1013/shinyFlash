@@ -1,4 +1,9 @@
 Name: shinyFlash
 Description: Generate interactive flash cards to help you study!
-Binding: flash_addin
+Binding: flash_addin_envir
+Interactive: true
+
+Name: shinyFlash (file)
+Description: Generate interactive flash cards to help you study!
+Binding: flash_addin_file
 Interactive: true

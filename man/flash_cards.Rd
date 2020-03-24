@@ -4,7 +4,8 @@
 \alias{flash_cards}
 \alias{flash_shiny}
 \alias{flash_local}
-\alias{flash_addin}
+\alias{flash_addin_envir}
+\alias{flash_addin_file}
 \title{Run the Shiny Application}
 \usage{
 flash_cards(.data = NULL, path = NULL, type = "local")
@@ -13,7 +14,9 @@ flash_shiny(.data = NULL, path = NULL)
 
 flash_local(.data = NULL, path = NULL, width = 1000, height = 800)
 
-flash_addin(envir = .GlobalEnv)
+flash_addin_envir(envir = .GlobalEnv)
+
+flash_addin_file()
 }
 \arguments{
 \item{.data}{a data.frame containing columns `question` and `answer`}
