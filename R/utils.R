@@ -40,7 +40,7 @@ read_flash_cards <- function(path){
 valid_flash_cards <- function(.data){
   .data <- janitor::clean_names(.data)
    attempt::stop_if(
-     all(c("question", "answer") %in% colnames(.data)), 
+     is_valid_flash_cards(.data), 
      .p = isFALSE,
      msg = "`.data` must contain the columns `question` and `answer`" 
    )
@@ -50,4 +50,14 @@ valid_flash_cards <- function(.data){
     dplyr::mutate_all(as.character)
   
   return(out)
+}
+
+is_valid_flash_cards <- function(.data){
+  if (!inherits(.data, "data.frame")) return(FALSE)
+  
+  if (all(c("question", "answer") %in% colnames(.data))) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
 }
