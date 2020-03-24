@@ -50,12 +50,18 @@ flash_addin <- function(.data = NULL, path = NULL, width = 1000, height = 800){
 }
 
 
-flash_addin_selection <- function(){
-  all_objs <- ls(envir = .GlobalEnv)
+flash_addin_selection <- function(envir = .GlobalEnv){
+  user_dat <- get_valid_decks(envir = envir)
+  
+  flash_addin(.data = user_dat)
+}
+
+
+get_valid_decks <- function(envir = .GlobalEnv){
+  all_objs <- ls(envir = envir)
   
   valid_objects <- purrr::map(all_objs, ~{
     obj <- base::get(.x, envir = .GlobalEnv)
-    # names(obj) <- .x
     
     if (is_valid_flash_cards(obj)){
       return(obj)
@@ -65,6 +71,12 @@ flash_addin_selection <- function(){
     purrr::discard(is.null)
   
   attempt::stop_if(length(valid_objects) == 0, msg = "No valid flash card decks in global environment! Valid flash card decks must be data.frames with a `question` and `answer` column!")
+  
+  if (length(valid_objects) == 1){
+    cat(crayon::red("There is only one valid flash card deck, using this deck:", 
+                    names(valid_objects)[1]), "\n")
+    return(valid_objects[[1]])
+  }
   
   user_select_txt <- purrr::map2(names(valid_objects), 1:length(valid_objects), ~{
     glue::glue("{.y}: {.x}")
@@ -84,9 +96,7 @@ flash_addin_selection <- function(){
   user_selection <- as.numeric(user_selection)
   if (is.null(user_selection)) stop("Selection must be numeric")
   if (!user_selection %in% seq_along(valid_objects)) stop("Selection must be between 1 and ", length(valid_objects))
-  
-  browser()
   user_dat <- valid_objects[[user_selection]]
   
-  flash_addin(.data = user_dat)
+  return(user_dat)
 }
