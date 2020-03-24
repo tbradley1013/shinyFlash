@@ -21,6 +21,7 @@ usethis::use_package("tidyr")
 usethis::use_package("readxl")
 usethis::use_package("janitor")
 usethis::use_pipe()
+usethis::use_package("crayon")
 
 # shiny related functions
 usethis::use_package("shinyjs")
