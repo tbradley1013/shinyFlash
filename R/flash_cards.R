@@ -11,14 +11,14 @@
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options
 flash_cards <- function(
-  .data = NULL, path = NULL, type = "shiny"
+  .data = NULL, path = NULL, type = "local"
 ) {
-  type <- match.arg(type, c("shiny", "addin"))
+  type <- match.arg(type, c("shiny", "local"))
   
   if (type == "shiny"){
     flash_shiny(.data = .data, path = path)
-  } else if (type == "addin"){
-    flash_addin(.data = .data, path = path)
+  } else if (type == "local"){
+    flash_local(.data = .data, path = path)
   }
 }
 
@@ -36,7 +36,7 @@ flash_shiny <- function(.data = NULL, path = NULL){
 
 #' @rdname flash_cards
 #' @export
-flash_addin <- function(.data = NULL, path = NULL, width = 1000, height = 800){
+flash_local <- function(.data = NULL, path = NULL, width = 1000, height = 800){
   viewer = shiny::dialogViewer("shinyFlash", width = width, height = height)
   
   app <- shinyApp(
@@ -50,10 +50,10 @@ flash_addin <- function(.data = NULL, path = NULL, width = 1000, height = 800){
 }
 
 
-flash_addin_selection <- function(envir = .GlobalEnv){
+flash_addin <- function(envir = .GlobalEnv){
   user_dat <- get_valid_decks(envir = envir)
   
-  flash_addin(.data = user_dat)
+  flash_local(.data = user_dat)
 }
 
 
