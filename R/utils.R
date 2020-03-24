@@ -54,7 +54,7 @@ valid_flash_cards <- function(.data){
 
 is_valid_flash_cards <- function(.data){
   if (!inherits(.data, "data.frame")) return(FALSE)
-  
+  .data <- janitor::clean_names(.data)
   if (all(c("question", "answer") %in% colnames(.data))) {
     return(TRUE)
   } else {
