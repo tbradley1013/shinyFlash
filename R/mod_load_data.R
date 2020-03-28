@@ -17,9 +17,14 @@ mod_load_data_ui <- function(id){
 #' load_data Server Function
 #'
 #' @noRd 
-mod_load_data_server <- function(input, output, session, rv){
+mod_load_data_server <- function(input, output, session, rv, 
+                                 question = question, answer = answer, 
+                                 clean = TRUE){
   ns <- session$ns
  
+  question <- dplyr::enquo(question)
+  answer <- dplyr::enquo(answer)
+  
   dialog <- shiny::modalDialog(
     shiny::h1("Select Dataset!"),
     shiny::selectInput(
@@ -72,11 +77,26 @@ mod_load_data_server <- function(input, output, session, rv){
       } 
       
       if (dat_choice == "adv_r"){
-        dat <- valid_flash_cards(shinyFlash::adv_r_deck)
+        dat <- valid_flash_cards(
+          shinyFlash::adv_r_deck,
+          question = question,
+          answer = answer,
+          clean = TRUE
+        )
       } else if (dat_choice == "drbc"){
-        dat <- valid_flash_cards(shinyFlash::drbc_deck)
+        dat <- valid_flash_cards(
+          shinyFlash::drbc_deck,
+          question = question,
+          answer = answer,
+          clean = TRUE
+        )
       } else {
-        dat <- read_flash_cards(dat_file$datapath)
+        dat <- read_flash_cards(
+          dat_file$datapath,
+          question = !!question,
+          answer = !!answer,
+          clean = clean
+        )
       }
       
       cat("Loaded the data!\n")
