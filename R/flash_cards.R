@@ -13,31 +13,39 @@
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options
 flash_cards <- function(.data = NULL, path = NULL, type = "local", 
-                        width = 1000, height = 800) {
+                        width = 1000, height = 800, 
+                        question = question, answer = answer, 
+                        clean = TRUE) {
   type <- match.arg(type, c("shiny", "local"))
   
   if (type == "shiny"){
-    flash_shiny(.data = .data, path = path)
+    flash_shiny(.data = .data, path = path, question = question, 
+                answer = answer, clean = clean)
   } else if (type == "local"){
-    flash_local(.data = .data, path = path, width = width, height = height)
+    flash_local(.data = .data, path = path, width = width, height = height, 
+                question = question, answer = answer, clean = clean)
   }
 }
 
 #' @rdname flash_cards
 #' @export
-flash_shiny <- function(.data = NULL, path = NULL){
+flash_shiny <- function(.data = NULL, path = NULL, 
+                        question = question, answer = answer, 
+                        clean = TRUE){
   with_golem_options(
     app = shinyApp(
       ui = app_ui, 
       server = app_server
     ), 
-    golem_opts = list(.data = .data, path = path)
+    golem_opts = list(.data = .data, path = path, question = question, 
+                      answer = answer, clean = clean)
   )
 }
 
 #' @rdname flash_cards
 #' @export
-flash_local <- function(.data = NULL, path = NULL, width = 1000, height = 800){
+flash_local <- function(.data = NULL, path = NULL, width = 1000, height = 800,
+                        question = question, answer = answer, clean = TRUE){
   viewer = shiny::dialogViewer("shinyFlash", width = width, height = height)
   
   app <- shinyApp(
@@ -45,7 +53,10 @@ flash_local <- function(.data = NULL, path = NULL, width = 1000, height = 800){
     server = addin_server
   )
   
-  app$appOptions$golem_options <- list(.data = .data, path = path)
+  app$appOptions$golem_options <- list(.data = .data, path = path,
+                                       question = question, 
+                                       answer = answer, 
+                                       clean = clean)
   
   shiny::runGadget(app = app, viewer = viewer)
 }
