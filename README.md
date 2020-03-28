@@ -89,3 +89,22 @@ dialog to appear and allow the user to select the file that they wish to
 uplaod to the function, as if through the `path` argument.
 
 ![](man/readme/flash-cards-addin.gif)
+
+## Contributing
+
+If you have any suggestions or comments, I would love to hear them\!
+Please consider [creating an
+issue](https://github.com/tbradley1013/shinyFlash/issues) or creating a
+pull request if you would like to contribute\!
+
+If you would like to submit a new dataset to be added to the default
+options available in the application, please open an
+[issue](https://github.com/tbradley1013/shinyFlash/issues) with the
+title: `NEW DATASET: <your dataset name>`
+
+### Code of Conduct
+
+Please note that the connectapi project is released with a [Contributor
+Code of
+Conduct](https://github.com/tbradley1013/shinyFlash/blob/master/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.
