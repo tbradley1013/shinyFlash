@@ -48,13 +48,17 @@ mod_gen_card_ui <- function(id, addin = FALSE){
 #' gen_card Server Function
 #'
 #' @noRd 
-mod_gen_card_server <- function(input, output, session, rv){
+mod_gen_card_server <- function(input, output, session, rv, 
+                                question = question, answer = answer){
   ns <- session$ns
  
+  question <- dplyr::enquo(question)
+  answer <- dplyr::enquo(answer)
+  
   card_html <- shiny::reactive({
     shiny::req(rv$dat)
     rv$dat %>% 
-      dplyr::select(question, answer) %>% 
+      dplyr::select(question = !!question, answer = !!answer) %>% 
       dplyr::group_nest(question, .key = "answer") %>% 
       dplyr::mutate(
         question = purrr::map(question, ~{
