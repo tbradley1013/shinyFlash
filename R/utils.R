@@ -78,7 +78,6 @@ is_valid_flash_cards <- function(.data, question = question,
                                  answer = answer, clean = TRUE){
   if (!inherits(.data, "data.frame")) return(FALSE)
   if (clean) .data <- janitor::clean_names(.data)
-  
   question <- dplyr::enquo(question)
   answer <- dplyr::enquo(answer)
   
@@ -94,9 +93,6 @@ is_valid_flash_cards <- function(.data, question = question,
 
 get_valid_decks <- function(envir = .GlobalEnv, question = question, answer = answer, clean = TRUE){
   all_objs <- ls(envir = envir)
-  
-  question <- dplyr::quo(question)
-  answer <- dplyr::quo(answer)
   
   valid_objects <- purrr::map(all_objs, ~{
     obj <- base::get(.x, envir = .GlobalEnv)

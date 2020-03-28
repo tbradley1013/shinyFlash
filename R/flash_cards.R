@@ -86,8 +86,8 @@ flash_addin_envir_custom <- function(envir = .GlobalEnv){
   answer <- dplyr::sym(answer)
   clean <- ifelse(clean == "Y", TRUE, FALSE)
   
-  user_dat <- get_valid_decks(envir = envir, question = !!question, 
-                              answer = !!answer)
+  user_dat <- get_valid_decks(envir = envir, question = question, 
+                              answer = answer)
   
   flash_local(.data = user_dat, question = !!question, answer = !!answer, 
               clean = clean)
