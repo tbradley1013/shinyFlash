@@ -21,7 +21,7 @@ app_ui <- function(request) {
             ),
             shiny::tags$a(
               shiny::icon("github"),
-              href = "https://github.com/tbradley1013/shiny-flash-cards"
+              href = "https://github.com/tbradley1013/shinyFlash"
             )
           ),
           shiny::div(
