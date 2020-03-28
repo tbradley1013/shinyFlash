@@ -8,7 +8,13 @@
 \alias{flash_addin_file}
 \title{Run the Shiny Application}
 \usage{
-flash_cards(.data = NULL, path = NULL, type = "local")
+flash_cards(
+  .data = NULL,
+  path = NULL,
+  type = "local",
+  width = 1000,
+  height = 800
+)
 
 flash_shiny(.data = NULL, path = NULL)
 
@@ -24,12 +30,12 @@ flash_addin_file()
 \item{path}{the path to a `.xlsx`, `.csv`, `.rds` file containing a 
 data.frame with columns `question` and `answer`}
 
-\item{type}{the type of flash_cards to run. Can be either "shiny" or "addin"}
+\item{type}{the type of flash_cards to run. Can be either "shiny" or "local"}
 
 \item{width}{the width of the rstudio modal dialog box (in pixels)}
 
-\item{envir}{the environment to look for flash card decks when using addin
-Defaults to .GlobalEnv}
+\item{envir}{the environment to look for flash card decks when using 
+type = "local"; Defaults to .GlobalEnv}
 
 \item{hieght}{the height of the rstudio modal dialog box (in pixels)}
 }
