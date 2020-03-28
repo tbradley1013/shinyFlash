@@ -14,3 +14,5 @@ flash_cards(type = "shiny")
 
 
 flash_addin(.data = shinyFlash::adv_r_deck)
+
+flash_addin_envir_custom()
