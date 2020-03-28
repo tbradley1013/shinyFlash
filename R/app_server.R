@@ -33,8 +33,7 @@ app_server <- function(input, output, session) {
                                  answer = !!answer, clean = clean)
     } else {
       isolate(shiny::callModule(mod_load_data_server, "load_data_ui_1", 
-                                rv = rv, question = !!question, 
-                                answer = !!answer, clean = clean))
+                                rv = rv))
     }
   })
   
@@ -51,8 +50,7 @@ app_server <- function(input, output, session) {
     shinyjs::hide("main-content")
     rv$dat <- NULL
     isolate(shiny::callModule(mod_load_data_server, "load_data_ui_1", 
-                              rv = rv, question = !!question, 
-                              answer = !!answer, clean = clean))
+                              rv = rv))
     # shinyjs::show("main-content")
   })
   

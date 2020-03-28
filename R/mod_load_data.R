@@ -17,13 +17,9 @@ mod_load_data_ui <- function(id){
 #' load_data Server Function
 #'
 #' @noRd 
-mod_load_data_server <- function(input, output, session, rv, 
-                                 question = question, answer = answer, 
-                                 clean = TRUE){
+mod_load_data_server <- function(input, output, session, rv){
   ns <- session$ns
  
-  question <- dplyr::enquo(question)
-  answer <- dplyr::enquo(answer)
   
   dialog <- shiny::modalDialog(
     shiny::h1("Select Dataset!"),
@@ -61,7 +57,22 @@ mod_load_data_server <- function(input, output, session, rv,
           label = "Custom File",
           accept = c("xlsx", "csv", "rds")
         ),
-        shiny::helpText("File must be a `.csv`, `.xlsx`, or `.rds` file with columns named `question` and `answer`.\nThese columns can contain HTML for custom formatting!")
+        shiny::helpText("File must be a `.csv`, `.xlsx`, or `.rds` file with columns named `question` and `answer`.\nThese columns can contain HTML for custom formatting!"),
+        shiny::textInput(
+          inputId = ns("q_col"),
+          label = "Question Column",
+          value = "question"
+        ),
+        shiny::textInput(
+          inputId = ns("a_col"),
+          label = "Answer Column",
+          value = "answer"
+        ),
+        shiny::checkboxInput(
+          inputId = ns("clean_data"),
+          label = "Clean Data?",
+          value = TRUE
+        )
       )
     } else out <- NULL
     
@@ -74,6 +85,9 @@ mod_load_data_server <- function(input, output, session, rv,
       dat_choice <- input$dataset_choice
       if (dat_choice == "custom"){
         dat_file <- input$custom_file
+        question <- dplyr::sym(input$q_col)
+        answer <- dplyr::sym(input$a_col)
+        clean <- input$clean_data
       } 
       
       if (dat_choice == "adv_r"){
