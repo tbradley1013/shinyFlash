@@ -22,7 +22,7 @@ test_that(
       "R", 
       c(
         "-e", 
-        "pkgload::load_all(here::here());run_app()"
+        "pkgload::load_all(here::here());flash_cards(type = 'shiny')"
       )
     )
     Sys.sleep(5)
