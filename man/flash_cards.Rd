@@ -13,12 +13,29 @@ flash_cards(
   path = NULL,
   type = "local",
   width = 1000,
-  height = 800
+  height = 800,
+  question = question,
+  answer = answer,
+  clean = TRUE
 )
 
-flash_shiny(.data = NULL, path = NULL)
+flash_shiny(
+  .data = NULL,
+  path = NULL,
+  question = question,
+  answer = answer,
+  clean = TRUE
+)
 
-flash_local(.data = NULL, path = NULL, width = 1000, height = 800)
+flash_local(
+  .data = NULL,
+  path = NULL,
+  width = 1000,
+  height = 800,
+  question = question,
+  answer = answer,
+  clean = TRUE
+)
 
 flash_addin_envir(envir = .GlobalEnv)
 

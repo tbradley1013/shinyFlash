@@ -4,10 +4,16 @@
 \alias{read_flash_cards}
 \title{Read Flash card files}
 \usage{
-read_flash_cards(path)
+read_flash_cards(path, question = question, answer = answer, clean = TRUE)
 }
 \arguments{
 \item{path}{the path to a file. Must have columns `question` and `answer`.}
+
+\item{question}{the column name for the questions in the dataset}
+
+\item{answer}{the column name for the answers in the dataset}
+
+\item{clean}{logical; whether or not to clean the column names}
 }
 \description{
 Read Flash card files

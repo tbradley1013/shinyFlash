@@ -4,14 +4,24 @@
 \alias{valid_flash_cards}
 \title{validate that flash cards have the required columns}
 \usage{
-valid_flash_cards(.data)
+valid_flash_cards(.data, question = question, answer = answer, clean = TRUE)
 }
 \arguments{
 \item{.data}{a date frame with columns `question` and `answer`}
+
+\item{question}{the column name for the questions in the dataset}
+
+\item{answer}{the column name for the answers in the dataset}
+
+\item{clean}{logical; whether or not to clean the column names}
 }
 \description{
 validate that flash cards have the required columns
 }
 \details{
+Note: If clean = TRUE (the default) then the columns specified by the 
+question and answer arguments must be in their cleaned form (lowercase 
+snakecase)
+
 the column names are case insensitive
 }
