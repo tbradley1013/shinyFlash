@@ -78,7 +78,7 @@ flash_addin_envir <- function(envir = .GlobalEnv){
   flash_local(.data = user_dat)
 }
 
-flash_addin_envir_custom <- function(envir = .GlovalEnv){
+flash_addin_envir_custom <- function(envir = .GlobalEnv){
   question <- readline("Enter question column name: ")
   answer <- readline("Enter answer column name: ")
   clean <- readline("Should column names be cleaned (Y/N): ")
