@@ -18,7 +18,7 @@ drbc_deck
 }
 \description{
 Questions and Answers from the Advanced R book by Hadley Wickham 
-(\link{https://adv-r.hadley.nz/}).
+(https://adv-r.hadley.nz/).
 
 Questions and Answers about the Delaware River Basin Commission (DRBC). 
 These questions and answers were amde from material taught by Carol Collier

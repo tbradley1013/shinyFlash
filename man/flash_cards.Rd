@@ -51,10 +51,16 @@ data.frame with columns `question` and `answer`}
 
 \item{width}{the width of the rstudio modal dialog box (in pixels)}
 
+\item{height}{the height of the rstudio modal dialog box (in pixels)}
+
+\item{question}{the column name for the questions in the dataset}
+
+\item{answer}{the column name for the answers in the dataset}
+
+\item{clean}{logical; whether or not to clean the column names}
+
 \item{envir}{the environment to look for flash card decks when using 
 type = "local"; Defaults to .GlobalEnv}
-
-\item{hieght}{the height of the rstudio modal dialog box (in pixels)}
 }
 \description{
 Run the Shiny Application

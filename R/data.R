@@ -5,7 +5,7 @@ NULL
 #' Advanced R Flash Cards
 #' 
 #' Questions and Answers from the Advanced R book by Hadley Wickham 
-#' (\link{https://adv-r.hadley.nz/}). 
+#' (https://adv-r.hadley.nz/). 
 #' @rdname flash_data
 "adv_r_deck"
 

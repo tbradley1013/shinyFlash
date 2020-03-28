@@ -5,9 +5,12 @@
 #' data.frame with columns `question` and `answer`
 #' @param type the type of flash_cards to run. Can be either "shiny" or "local"
 #' @param width the width of the rstudio modal dialog box (in pixels)
-#' @param hieght the height of the rstudio modal dialog box (in pixels)
+#' @param height the height of the rstudio modal dialog box (in pixels)
 #' @param envir the environment to look for flash card decks when using 
 #' type = "local"; Defaults to .GlobalEnv
+#' @param question the column name for the questions in the dataset
+#' @param answer the column name for the answers in the dataset
+#' @param clean logical; whether or not to clean the column names
 #' 
 #' @export
 #' @importFrom shiny shinyApp
