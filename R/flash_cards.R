@@ -81,13 +81,16 @@ flash_addin_envir <- function(envir = .GlobalEnv){
 flash_addin_envir_custom <- function(envir = .GlovalEnv){
   question <- readline("Enter question column name: ")
   answer <- readline("Enter answer column name: ")
+  clean <- readline("Should column names be cleaned (Y/N): ")
   question <- dplyr::sym(question)
   answer <- dplyr::sym(answer)
+  clean <- ifelse(clean == "Y", TRUE, FALSE)
   
   user_dat <- get_valid_decks(envir = envir, question = !!question, 
                               answer = !!answer)
   
-  flash_local(.data = user_dat, question = !!question, answer = !!answer)
+  flash_local(.data = user_dat, question = !!question, answer = !!answer, 
+              clean = clean)
 }
 
 #' @rdname flash_cards
