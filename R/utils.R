@@ -92,13 +92,16 @@ is_valid_flash_cards <- function(.data, question = question,
   }
 }
 
-get_valid_decks <- function(envir = .GlobalEnv){
+get_valid_decks <- function(envir = .GlobalEnv, question = question, answer = answer){
   all_objs <- ls(envir = envir)
+  
+  question <- dplyr::quo(question)
+  answer <- dplyr::quo(answer)
   
   valid_objects <- purrr::map(all_objs, ~{
     obj <- base::get(.x, envir = .GlobalEnv)
     
-    if (is_valid_flash_cards(obj)){
+    if (is_valid_flash_cards(obj, question = !!question, answer = !!answer)){
       return(obj)
     } else return(NULL)
   }) %>% 

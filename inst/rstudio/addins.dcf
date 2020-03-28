@@ -7,3 +7,9 @@ Name: shinyFlash (file)
 Description: Generate interactive flash cards to help you study!
 Binding: flash_addin_file
 Interactive: true
+
+Name: shinyFlash (custom column names)
+Description: Generate interactive flash cards from datasets in your global 
+    environment with column names other than `question` and `answer`
+Binding: flash_addin_envir_custom
+Interactive: true

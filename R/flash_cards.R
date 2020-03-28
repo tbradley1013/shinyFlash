@@ -78,6 +78,18 @@ flash_addin_envir <- function(envir = .GlobalEnv){
   flash_local(.data = user_dat)
 }
 
+flash_addin_envir_custom <- function(envir = .GlovalEnv){
+  question <- readline("Enter question column name: ")
+  answer <- readline("Enter answer column name: ")
+  question <- dplyr::sym(question)
+  answer <- dplyr::sym(answer)
+  
+  user_dat <- get_valid_decks(envir = envir, question = !!question, 
+                              answer = !!answer)
+  
+  flash_local(.data = user_dat, question = !!question, answer = !!answer)
+}
+
 #' @rdname flash_cards
 #' @export
 flash_addin_file <- function(){
