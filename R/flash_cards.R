@@ -18,12 +18,15 @@ flash_cards <- function(.data = NULL, path = NULL, type = "local",
                         clean = TRUE) {
   type <- match.arg(type, c("shiny", "local"))
   
+  question <- dplyr::enquo(question)
+  answer <- dplyr::enquo(answer)
+  
   if (type == "shiny"){
-    flash_shiny(.data = .data, path = path, question = question, 
-                answer = answer, clean = clean)
+    flash_shiny(.data = .data, path = path, question = !!question, 
+                answer = !!answer, clean = clean)
   } else if (type == "local"){
     flash_local(.data = .data, path = path, width = width, height = height, 
-                question = question, answer = answer, clean = clean)
+                question = !!question, answer = !!answer, clean = clean)
   }
 }
 
@@ -32,6 +35,9 @@ flash_cards <- function(.data = NULL, path = NULL, type = "local",
 flash_shiny <- function(.data = NULL, path = NULL, 
                         question = question, answer = answer, 
                         clean = TRUE){
+  question <- dplyr::enquo(question)
+  answer <- dplyr::enquo(answer)
+  
   with_golem_options(
     app = shinyApp(
       ui = app_ui, 
@@ -47,6 +53,9 @@ flash_shiny <- function(.data = NULL, path = NULL,
 flash_local <- function(.data = NULL, path = NULL, width = 1000, height = 800,
                         question = question, answer = answer, clean = TRUE){
   viewer = shiny::dialogViewer("shinyFlash", width = width, height = height)
+  
+  question <- dplyr::enquo(question)
+  answer <- dplyr::enquo(answer)
   
   app <- shinyApp(
     ui = addin_ui, 
@@ -77,46 +86,4 @@ flash_addin_file <- function(){
   flash_local(path = usr_file)
 }
 
-get_valid_decks <- function(envir = .GlobalEnv){
-  all_objs <- ls(envir = envir)
-  
-  valid_objects <- purrr::map(all_objs, ~{
-    obj <- base::get(.x, envir = .GlobalEnv)
-    
-    if (is_valid_flash_cards(obj)){
-      return(obj)
-    } else return(NULL)
-  }) %>% 
-    purrr::set_names(all_objs) %>% 
-    purrr::discard(is.null)
-  
-  attempt::stop_if(length(valid_objects) == 0, msg = "No valid flash card decks in global environment! Valid flash card decks must be data.frames with a `question` and `answer` column!")
-  
-  if (length(valid_objects) == 1){
-    cat(crayon::red("There is only one valid flash card deck, using this deck:", 
-                    names(valid_objects)[1]), "\n")
-    return(valid_objects[[1]])
-  }
-  
-  user_select_txt <- purrr::map2(names(valid_objects), 1:length(valid_objects), ~{
-    glue::glue("{.y}: {.x}")
-  }) %>% 
-    glue::glue_collapse(sep = "\n")
-  
-  user_select_txt <- glue::glue(
-    "There are {length(valid_objects)} valid flash card decks in your global environment!\n",
-    "Please select which dataset you would like to use:\n",
-    "{user_select_txt}\n",
-    
-  )
-  
-  cat(crayon::red(user_select_txt))
-  user_selection <- readline(crayon::red("Enter the number of the deck you would like to use: "))
-  
-  user_selection <- as.numeric(user_selection)
-  if (is.null(user_selection)) stop("Selection must be numeric")
-  if (!user_selection %in% seq_along(valid_objects)) stop("Selection must be between 1 and ", length(valid_objects))
-  user_dat <- valid_objects[[user_selection]]
-  
-  return(user_dat)
-}
+
