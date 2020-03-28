@@ -73,7 +73,7 @@ app_server <- function(input, output, session) {
   
   callModule(mod_gen_card_server, "gen_card_ui_1", 
              rv = rv, question = !!question, 
-             answer = !!answer, clean = clean)
+             answer = !!answer)
   
 }
 
@@ -122,7 +122,7 @@ addin_server <- function(input, output, session){
   
   callModule(mod_gen_card_server, "gen_card_ui_1",
              rv = rv, question = !!question, 
-             answer = !!answer, clean = clean)
+             answer = !!answer)
   
   observeEvent(input$done, {
     stopApp()
