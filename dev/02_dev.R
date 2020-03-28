@@ -23,6 +23,7 @@ usethis::use_package("janitor")
 usethis::use_pipe()
 usethis::use_package("crayon")
 usethis::use_package("rstudioapi")
+usethis::use_package("purrr")
 
 # shiny related functions
 usethis::use_package("shinyjs")
