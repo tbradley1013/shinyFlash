@@ -1,6 +1,6 @@
 Package: shinyFlash
 Title: Flash Cards In Shiny
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: person('Tyler', 'Bradley', email = 'tcb85@drexel.edu', role = c('cre', 'aut'))
 Description: Easily create virtual flash cards.
 License: MIT + file LICENSE
