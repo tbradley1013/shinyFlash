@@ -2,7 +2,6 @@
 library(shinyFlash)
 library(shiny)
 
-shinyApp(
-  ui = shinyFlash:::app_ui(),
-  server = shinyFlash:::app_server
-)
+# shinyApp()
+
+flash_cards(type = "shiny")
