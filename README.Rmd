@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # shinyFlash <img src="shinyFlash.png" align="right" width="175px" height="203px" />
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
 
 The goal of shinyFlash is to provide easy to use, interactive flash cards to help you study! This package contains one primary function: `flash_cards`. This function will allow you to generate flash cards either in a shiny app or in an interactive RStudio addin. 
