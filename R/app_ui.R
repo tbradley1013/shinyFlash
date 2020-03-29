@@ -48,7 +48,7 @@ app_ui <- function(request) {
 #' @noRd
 golem_add_external_resources <- function(addin = FALSE){
   
-  add_resource_path(
+  golem::add_resource_path(
     'www', app_sys('app/www')
   )
  
@@ -59,8 +59,8 @@ golem_add_external_resources <- function(addin = FALSE){
   }
   
   tags$head(
-    favicon(),
-    bundle_resources(
+    golem::favicon(),
+    golem::bundle_resources(
       path = app_sys('app/www'),
       app_title = 'shinyFlash'
     ),
