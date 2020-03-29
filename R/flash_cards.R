@@ -78,7 +78,10 @@ flash_local <- function(.data = NULL, path = NULL, width = 1000, height = 800,
 flash_addin_envir <- function(envir = .GlobalEnv){
   user_dat <- get_valid_decks(envir = envir)
   
-  flash_local(.data = user_dat)
+  q <- dplyr::sym("question")
+  a <- dplyr::sym("answer")
+ 
+  flash_local(.data = user_dat, question = !!q, answer = !!a)
 }
 
 flash_addin_envir_custom <- function(envir = .GlobalEnv){
