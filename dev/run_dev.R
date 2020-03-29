@@ -12,8 +12,7 @@ golem::document_and_reload()
 # flash_cards(.data = shinyFlash::adv_r_deck)
 flash_cards(type = "shiny")
 
-
-flash_addin(.data = shinyFlash::adv_r_deck)
+flash_local(.data = shinyFlash::adv_r_deck)
 
 flash_addin_envir_custom()
 
